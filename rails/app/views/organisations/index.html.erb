@@ -1,0 +1,49 @@
+<% content_for :title, "Organisations" %>
+
+<div class="container">
+  <div class="d-hotwire-native-none mt-4">
+    <h1>Organisations 🏢</h1>
+  </div>
+
+  <% if @organisations.any? %>
+    <div class="row mt-4">
+      <% @organisations.each do |organisation| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= organisation.name %></h5>
+              <% if organisation.location.present? %>
+                <p class="card-text text-muted">
+                  <i class="bi bi-geo-alt"></i> <%= organisation.location %>
+                </p>
+              <% end %>
+              <% if organisation.website.present? %>
+                <p class="card-text">
+                  <i class="bi bi-globe"></i>
+                  <a href="<%= organisation.website %>" target="_blank" rel="noopener"><%= organisation.website %></a>
+                </p>
+              <% end %>
+              <% if organisation.intro_text.present? %>
+                <p class="card-text"><%= truncate(strip_tags(organisation.intro_text), length: 100) %></p>
+              <% end %>
+              <% if organisation.followers_count && organisation.followers_count > 0 %>
+                <p class="card-text">
+                  <i class="bi bi-people"></i> <%= pluralize(organisation.followers_count, 'follower') %>
+                </p>
+              <% end %>
+            </div>
+            <div class="card-footer bg-transparent">
+              <%= link_to "View", organisation, class: "btn btn-outline-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-5">
+      <i class="bi bi-building display-1 text-muted"></i>
+      <h3 class="mt-3 text-muted">No organisations yet</h3>
+      <p class="text-muted">Check back later for organisations!</p>
+    </div>
+  <% end %>
+</div>

@@ -15,17 +15,17 @@ private val events = HotwireBottomTab(
     )
 )
 
-private val accounts = HotwireBottomTab(
-    title = "People",
-    iconResId = android.R.drawable.ic_menu_myplaces,
+private val organisations = HotwireBottomTab(
+    title = "Organisations",
+    iconResId = android.R.drawable.ic_menu_manage,
     configuration = NavigatorConfiguration(
-        name = "accounts",
-        navigatorHostId = R.id.accounts_nav_host,
-        startLocation = "$baseURL/accounts"
+        name = "organisations",
+        navigatorHostId = R.id.organisations_nav_host,
+        startLocation = "$baseURL/organisations"
     )
 )
 
 val mainTabs = listOf(
     events,
-    accounts
+    organisations
 )
