@@ -6,6 +6,6 @@ This project is for a new version of Dandelion that includes a web app, iOS app 
 
 The old version of Dandelion (web-app-only) is in the dandelion dir.
 
-In the ch09_09 dir, you'll find a template app with separate rails, ios and android directories. 
+In the template dir, you'll find a template app with separate rails, ios and android directories. 
 
 rails/app/models is symlinked to the models dir in the old Dandelion app. That is to say, the new app will use the same models as the old app. The new app should not make changes to these Ruby models, but everything else can be changed.
