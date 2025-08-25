@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="mb-4">
+        <%= link_to "← Back to Events", events_path, class: "btn btn-outline-secondary mb-2" %>
+        <h1><%= @event.name %></h1>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <% if @event.start_time || @event.end_time %>
+            <h5 class="card-title">📅 When</h5>
+            <p class="card-text mb-3">
+              <% if @event.start_time && @event.end_time %>
+                <%= @event.start_time.strftime("%B %d, %Y at %I:%M %p") %> - 
+                <%= @event.end_time.strftime("%I:%M %p") %>
+              <% elsif @event.start_time %>
+                <%= @event.start_time.strftime("%B %d, %Y at %I:%M %p") %>
+              <% end %>
+            </p>
+          <% end %>
+
+          <% if @event.location.present? %>
+            <h5 class="card-title">📍 Where</h5>
+            <p class="card-text mb-3"><%= @event.location %></p>
+          <% end %>
+
+          <% if @event.description.present? %>
+            <h5 class="card-title">📝 Description</h5>
+            <div class="card-text">
+              <%= simple_format(@event.description) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

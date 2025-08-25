@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>🌻 Events</h1>
+  </div>
+
+  <% if @events.any? %>
+    <div class="row">
+      <% @events.each do |event| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= event.name %></h5>
+              <p class="card-text text-muted">
+                <i class="bi bi-geo-alt"></i> <%= event.location || "Location TBD" %>
+              </p>
+              <% if event.start_time %>
+                <p class="card-text">
+                  <i class="bi bi-calendar"></i>
+                  <%= event.start_time.strftime("%B %d, %Y at %I:%M %p") %>
+                </p>
+              <% end %>
+              <% if event.description.present? %>
+                <p class="card-text"><%= truncate(event.description, length: 100) %></p>
+              <% end %>
+            </div>
+            <div class="card-footer bg-transparent">
+              <%= link_to "View", event, class: "btn btn-outline-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-5">
+      <i class="bi bi-calendar-x display-1 text-muted"></i>
+      <h3 class="mt-3 text-muted">No events yet</h3>
+      <p class="text-muted">Check back later for upcoming events!</p>
+    </div>
+  <% end %>
+</div>

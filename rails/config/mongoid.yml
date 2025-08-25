@@ -1,0 +1,18 @@
+development:
+  clients:
+    default:
+      database: dandelion
+      hosts:
+        - localhost:27017
+
+test:
+  clients:
+    default:
+      database: dandelion_test
+      hosts:
+        - localhost:27017
+
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URI'] || 'mongodb://localhost:27017/dandelion_production' %>
