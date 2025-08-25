@@ -14,7 +14,7 @@ class ConfigurationsController < ApplicationController
         },
         {
           patterns: [
-            "/events/[0-9]+/map"
+            "/events/[a-z0-9-]+/map"
           ],
           properties: {
             view_controller: "map"
@@ -49,7 +49,7 @@ class ConfigurationsController < ApplicationController
         },
         {
           patterns: [
-            "/events/[0-9]+/map"
+            "/events/[a-z0-9-]+/map"
           ],
           properties: {
             uri: "hotwire://fragment/map",
