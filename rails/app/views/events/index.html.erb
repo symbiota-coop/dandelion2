@@ -1,10 +1,12 @@
+<% content_for :title, "Events" %>
+
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>🌻 Events</h1>
+  <div class="d-hotwire-native-none mt-4">
+    <h1>Events</h1>
   </div>
 
   <% if @events.any? %>
-    <div class="row">
+    <div class="row mt-4">
       <% @events.each do |event| %>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card h-100">

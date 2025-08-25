@@ -1,4 +1,4 @@
-# Dandelion Android App 🌻📱
+# Dandelion Android App
 
 The Android companion app for Dandelion, built with Kotlin and Hotwire Native.
 
@@ -69,4 +69,4 @@ Run the test suite:
 
 ---
 
-Part of the Dandelion ecosystem 🌻
+Part of the Dandelion ecosystem

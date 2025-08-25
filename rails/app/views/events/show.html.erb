@@ -1,12 +1,14 @@
+<% content_for :title, @event.name %>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-8 mx-auto">
-      <div class="mb-4">
-        <%= link_to "← Back to Events", events_path, class: "btn btn-outline-secondary mb-2" %>
+
+      <div class="d-hotwire-native-none mt-4">
         <h1><%= @event.name %></h1>
       </div>
 
-      <div class="card">
+      <div class="card mt-4">
         <div class="card-body">
           <% if @event.start_time || @event.end_time %>
             <h5 class="card-title">📅 When</h5>

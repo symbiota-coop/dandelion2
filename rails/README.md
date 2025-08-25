@@ -1,4 +1,4 @@
-# 🌻 Dandelion 2 - Rails API
+# Dandelion 2 - Rails API
 
 A modern Rails app for the new multi-platform Dandelion project, featuring web, iOS, and Android apps.
 
@@ -44,7 +44,7 @@ A modern Rails app for the new multi-platform Dandelion project, featuring web, 
 - **Models**: Shared with original Dandelion app via symlink (`app/models -> ../../../dandelion/models`)
 - **Database**: MongoDB with Mongoid ODM
 - **Frontend**: Bootstrap 5 + Turbo + Stimulus
-- **Styling**: Custom Dandelion-themed CSS with sunflower colors 🌻
+- **Styling**: Custom Dandelion-themed CSS with sunflower colors
 
 ## 🛠️ Development
 
@@ -79,6 +79,6 @@ dandelion2/rails/
 4. **API Endpoints**: Add JSON API endpoints for mobile apps
 5. **Real-time Features**: WebSocket support for live updates
 
-## 🌻 About Dandelion
+## About Dandelion
 
 This is the new multi-platform version of Dandelion, expanding from the original web-only application to include native mobile apps while maintaining compatibility with existing data and models.

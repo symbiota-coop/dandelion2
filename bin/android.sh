@@ -27,7 +27,7 @@ case "$1" in
         ./gradlew test
         ;;
     *)
-        echo "🌻 Dandelion Android Build Script"
+        echo "Dandelion Android Build Script"
         echo ""
         echo "Usage: $0 [command]"
         echo ""
