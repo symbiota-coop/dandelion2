@@ -6,6 +6,7 @@ class OrganisationsController < ApplicationController
   end
 
   def show
+    @events = @organisation.events.order(start_time: :desc).limit(20)
   end
 
   private

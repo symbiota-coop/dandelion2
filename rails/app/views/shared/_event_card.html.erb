@@ -1,0 +1,28 @@
+<div class="col-md-6 mb-3">
+  <div class="card h-100">
+    <div class="card-body">
+      <h6 class="card-title">
+        <a href="/events/<%= event.id %>" class="text-decoration-none">
+          <%= event.name %>
+        </a>
+      </h6>
+      <% if event.start_time %>
+        <p class="card-text text-muted small">
+          <i class="bi bi-calendar"></i>
+          <%= event.start_time.strftime("%B %d, %Y at %I:%M %p") %>
+        </p>
+      <% end %>
+      <% if event.location.present? %>
+        <p class="card-text text-muted small">
+          <i class="bi bi-geo-alt"></i>
+          <%= event.location %>
+        </p>
+      <% end %>
+      <% if event.description.present? %>
+        <p class="card-text">
+          <%= truncate(strip_tags(event.description), length: 100) %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

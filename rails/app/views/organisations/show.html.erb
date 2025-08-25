@@ -57,6 +57,29 @@
           </div>
         </div>
       </div>
+
+      <!-- Events Section -->
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">🎉 Events</h5>
+          <% if @events.any? %>
+            <div class="row">
+              <%= render partial: 'shared/event_card', collection: @events, as: :event %>
+            </div>
+            <% if @organisation.events.count > 20 %>
+              <div class="mt-3">
+                <small class="text-muted">
+                  Showing latest 20 events. This organisation has <%= pluralize(@organisation.events.count, 'event') %> in total.
+                </small>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="card-text text-muted">
+              <i class="bi bi-calendar-x"></i> No events found for this organisation yet.
+            </p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
