@@ -27,6 +27,13 @@
             <p class="card-text mb-3"><%= @event.location %></p>
           <% end %>
 
+          <% if @event.organisation.present? %>
+            <h5 class="card-title">🏢 Organized by</h5>
+            <p class="card-text mb-3">
+              <%= link_to @event.organisation.name, organisation_path(@event.organisation), class: "text-decoration-none" %>
+            </p>
+          <% end %>
+
           <% if @event.description.present? %>
             <h5 class="card-title">📝 Description</h5>
             <div class="card-text">

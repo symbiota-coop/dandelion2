@@ -12,6 +12,6 @@ class OrganisationsController < ApplicationController
   private
 
   def set_organisation
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.fs(params[:slug])
   end
 end

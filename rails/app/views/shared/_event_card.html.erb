@@ -2,9 +2,9 @@
   <div class="card h-100">
     <div class="card-body">
       <h6 class="card-title">
-        <a href="/events/<%= event.id %>" class="text-decoration-none">
+        <%= link_to event_path(event), class: "text-decoration-none" do %>
           <%= event.name %>
-        </a>
+        <% end %>
       </h6>
       <% if event.start_time %>
         <p class="card-text text-muted small">
