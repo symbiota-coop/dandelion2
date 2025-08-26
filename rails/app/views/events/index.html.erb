@@ -9,7 +9,11 @@
   <div class="row mt-3">
     <div class="col-12">
       <%= form_with url: events_path, method: :get, local: false, 
-                    data: { turbo_frame: "events_content", controller: "auto-submit" }, 
+                    data: { 
+                      turbo_frame: "events_content", 
+                      turbo_action: "advance",
+                      controller: "auto-submit" 
+                    }, 
                     class: "row g-3" do |form| %>
 
         <!-- Search Text -->
