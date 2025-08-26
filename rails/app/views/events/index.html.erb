@@ -5,38 +5,111 @@
     <h1>Events</h1>
   </div>
 
-  <% if @events.any? %>
-    <div class="row mt-4">
-      <% @events.each do |event| %>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title"><%= event.name %></h5>
-              <p class="card-text text-muted">
-                <i class="bi bi-geo-alt"></i> <%= event.location || "Location TBD" %>
-              </p>
-              <% if event.start_time %>
-                <p class="card-text">
-                  <i class="bi bi-calendar"></i>
-                  <%= event.start_time.strftime("%B %d, %Y at %I:%M %p") %>
-                </p>
-              <% end %>
-              <% if event.description.present? %>
-                <p class="card-text"><%= truncate(event.description, length: 100) %></p>
-              <% end %>
+  <!-- Search Form -->
+  <div class="row mt-3">
+    <div class="col-12">
+      <%= form_with url: events_path, method: :get,
+                    data: { turbo_frame: "events_content", controller: "auto-submit" }, 
+                    class: "row g-3" do |form| %>
+
+        <!-- Search Text -->
+        <div class="col-md-6">
+          <%= form.text_field :search, 
+              value: params[:search], 
+              placeholder: "Search events by name, description, or location...", 
+              class: "form-control",
+              data: { action: "input->auto-submit#submit" } %>
+        </div>
+
+        <!-- Date Range -->
+        <div class="col-md-3">
+          <%= form.date_field :from, 
+              value: @from, 
+              class: "form-control",
+              placeholder: "From date",
+              data: { action: "change->auto-submit#submitImmediate" } %>
+          <small class="text-muted">From date</small>
+        </div>
+
+        <div class="col-md-3">
+          <%= form.date_field :to, 
+              value: @to, 
+              class: "form-control",
+              placeholder: "To date",
+              data: { action: "change->auto-submit#submitImmediate" } %>
+          <small class="text-muted">To date</small>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="col-12">
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <!-- Online/In-person -->
+            <div class="form-check">
+              <%= form.check_box :online, 
+                  { checked: params[:online] == "1", class: "form-check-input", 
+                    data: { action: "change->auto-submit#submitImmediate" } }, 
+                  "1", nil %>
+              <%= form.label :online, "Online", class: "form-check-label" %>
             </div>
-            <div class="card-footer bg-transparent">
-              <%= link_to "View", event, class: "btn btn-outline-primary btn-sm" %>
+
+            <div class="form-check">
+              <%= form.check_box :in_person, 
+                  { checked: params[:in_person] == "1", class: "form-check-input",
+                    data: { action: "change->auto-submit#submitImmediate" } }, 
+                  "1", nil %>
+              <%= form.label :in_person, "In-person", class: "form-check-label" %>
+            </div>
+
+            <!-- Sort Order -->
+            <div class="d-flex align-items-center">
+              <label class="form-label me-2 mb-0">Sort by:</label>
+              <%= form.select :order, 
+                  options_for_select([
+                    ["Start time", "start_time"],
+                    ["Recently added", "created_at"]
+                  ], params[:order]), 
+                  { include_blank: false }, 
+                  { class: "form-select form-select-sm", style: "width: auto;",
+                    data: { action: "change->auto-submit#submitImmediate" } } %>
+            </div>
+
+            <!-- Buttons -->
+            <div class="ms-auto d-flex gap-2">
+              <!-- Search button hidden since form auto-submits -->
+              <%= form.submit "Search", class: "btn btn-primary d-none" %>
             </div>
           </div>
         </div>
+
       <% end %>
     </div>
-  <% else %>
-    <div class="text-center py-5">
-      <i class="bi bi-calendar-x display-1 text-muted"></i>
-      <h3 class="mt-3 text-muted">No events yet</h3>
-      <p class="text-muted">Check back later for upcoming events!</p>
-    </div>
+  </div>
+
+  <%= turbo_frame_tag "events_content" do %>
+    <% if @events.any? %>
+      <div class="row mt-4">
+        <% @events.each do |event| %>
+          <%= render partial: 'event', locals: { event: event } %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-5">
+        <i class="bi bi-calendar-x display-1 text-muted"></i>
+        <h3 class="mt-3 text-muted">
+          <% if params[:search].present? %>
+            No events found
+          <% else %>
+            No events yet
+          <% end %>
+        </h3>
+        <p class="text-muted">
+          <% if params[:search].present? %>
+            Try adjusting your search terms
+          <% else %>
+            Check back later for upcoming events!
+          <% end %>
+        </p>
+      </div>
+    <% end %>
   <% end %>
 </div>
