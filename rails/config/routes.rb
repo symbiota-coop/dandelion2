@@ -10,5 +10,8 @@ Rails.application.routes.draw do
     get :android_v1, on: :collection
   end
 
+  # Map point route for getting partial views of specific models
+  get '/point/:model/:id', to: 'maps#point'
+
   root "events#index"
 end

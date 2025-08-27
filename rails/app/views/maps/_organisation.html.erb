@@ -1,0 +1,32 @@
+<div class="map-popup-content map-organisation">
+  <div class="block-title">
+    <h4 class="d-inline mr-1">
+      <%= link_to organisation.name, organisation_path(organisation), class: "text-dark", target: "_parent" %>
+    </h4>
+  </div>
+
+  <% if organisation.respond_to?(:image) && organisation.image.present? %>
+    <div class="organisation-image mb-2">
+      <%= image_tag organisation.image, class: "img-fluid rounded", style: "max-height: 100px;" %>
+    </div>
+  <% end %>
+
+  <% if organisation.respond_to?(:description) && organisation.description.present? %>
+    <div class="organisation-description">
+      <p class="small"><%= truncate(strip_tags(organisation.description), length: 150) %></p>
+    </div>
+  <% end %>
+
+  <% if organisation.respond_to?(:website) && organisation.website.present? %>
+    <div class="organisation-website">
+      <small class="text-muted">🌐 <%= link_to "Website", organisation.website, target: "_blank", class: "text-decoration-none" %></small>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .map-organisation .block-title { margin-bottom: 0.5rem !important; }
+  .map-organisation h4 { font-size: 1.1rem !important; display: inline-block !important; margin-bottom: 0 !important; }
+  .map-organisation .small { font-size: 0.85rem !important; }
+  .map-popup-content { max-width: 300px; }
+</style>

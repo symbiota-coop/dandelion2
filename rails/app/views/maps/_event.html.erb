@@ -1,0 +1,35 @@
+<div class="map-popup-content map-event">
+  <div class="block-title">
+    <h4 class="d-inline mr-1">
+      <%= link_to event.name, event_path(event), class: "text-dark", target: "_parent" %>
+    </h4>
+    <% if event.respond_to?(:sold_out?) && event.sold_out? %>
+      <span class="badge bg-danger">Sold out</span>
+    <% end %>
+  </div>
+
+  <% if event.respond_to?(:when) && event.when.present? %>
+    <div class="event-date">
+      <small class="text-muted">📅 <%= event.when %></small>
+    </div>
+  <% end %>
+
+  <% if event.respond_to?(:location) && event.location.present? %>
+    <div class="event-location">
+      <small class="text-muted">📍 <%= event.location %></small>
+    </div>
+  <% end %>
+
+  <% if event.respond_to?(:description) && event.description.present? %>
+    <div class="event-description">
+      <p class="small"><%= truncate(strip_tags(event.description), length: 150) %></p>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .map-event .block-title { margin-bottom: 0.5rem !important; }
+  .map-event h4 { font-size: 1.1rem !important; display: inline-block !important; margin-bottom: 0 !important; }
+  .map-event .small { font-size: 0.85rem !important; }
+  .map-popup-content { max-width: 300px; }
+</style>

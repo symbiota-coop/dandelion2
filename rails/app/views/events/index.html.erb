@@ -77,6 +77,19 @@
                     data: { action: "change->auto-submit#submitImmediate" } } %>
             </div>
 
+            <!-- View Select -->
+            <div class="d-flex align-items-center">
+              <label class="form-label me-2 mb-0">View:</label>
+              <%= form.select :view, 
+                  options_for_select([
+                    ["📋 List", "list"],
+                    ["🗺️ Map", "map"]
+                  ], params[:view] || "list"), 
+                  { include_blank: false }, 
+                  { class: "form-select form-select-sm", style: "width: auto;",
+                    data: { action: "change->auto-submit#submitImmediate" } } %>
+            </div>
+
             <!-- Buttons -->
             <div class="ms-auto d-flex gap-2">
               <!-- Search button hidden since form auto-submits -->
@@ -91,7 +104,7 @@
 
   <%= turbo_frame_tag "events_content" do %>
     <% if @events.any? %>
-      <% if params[:display] == 'map' %>
+      <% if params[:view] == 'map' %>
         <%= render 'shared/map', points: @events.and(:coordinates.ne => nil) %>
       <% else %>
         <div class="row mt-4">
