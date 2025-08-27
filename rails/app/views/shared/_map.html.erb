@@ -4,6 +4,21 @@ points_limit = 500
 
 <script>
   $(function () {
+    // Calculate and set the header height for full-height map
+    function setMapHeight() {
+      const navbar = document.querySelector('.navbar');
+      const mapContainer = document.getElementById('map-container');
+      if (navbar && mapContainer) {
+        const mapContainerTop = mapContainer.getBoundingClientRect().top;
+        const headerHeight = mapContainerTop;
+        document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
+      }
+    }
+
+    // Set height on load and resize
+    setMapHeight();
+    $(window).on('resize', setMapHeight);
+
     // Prepare configuration data
 
     var points = [];
@@ -61,6 +76,6 @@ points_limit = 500
   });
 </script>
 <div id="map-container" style="position: relative">
-  <div id="map-canvas" style="height: 68vh"></div>
+  <div id="map-canvas" style="height: calc(100vh - var(--header-height, 200px))"></div>
   <div id="points-warning" style="position: absolute; top: 0; left: 20px; right: 20px; margin: auto; display: none" class="mt-3 alert alert-warning">There are too many points to display, please zoom in</div>
 </div>

@@ -3,7 +3,6 @@ package com.dandelion.app
 import android.app.Application
 import com.dandelion.app.activities.baseURL
 import com.dandelion.app.components.ButtonComponent
-import com.dandelion.app.fragments.MapFragment
 import dev.hotwire.core.bridge.BridgeComponentFactory
 import dev.hotwire.core.bridge.KotlinXJsonConverter
 import dev.hotwire.core.config.Hotwire
@@ -24,8 +23,7 @@ class DandelionApplication : Application() {
         )
 
         Hotwire.registerFragmentDestinations(
-            HotwireWebFragment::class,
-            MapFragment::class,
+            HotwireWebFragment::class
         )
 
         Hotwire.registerBridgeComponents(

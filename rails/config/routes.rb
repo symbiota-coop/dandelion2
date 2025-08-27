@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :organisations, only: [:index, :show], param: :slug
 
   resources :configurations, only: [] do
-    get :ios_v1, on: :collection
     get :android_v1, on: :collection
   end
 
