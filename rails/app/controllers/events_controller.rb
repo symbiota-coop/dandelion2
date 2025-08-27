@@ -31,6 +31,27 @@ class EventsController < ApplicationController
               else
                 @events.order('start_time asc')
               end
+
+    if params[:view] == 'map'
+      
+      if params[:south].present? && params[:west].present? && params[:north].present? && params[:east].present?
+        @lat = params[:lat]
+        @lng = params[:lng]
+        @zoom = params[:zoom]
+        @south = params[:south]
+        @west = params[:west]
+        @north = params[:north]
+        @east = params[:east]
+        box = [[@west.to_f, @south.to_f], [@east.to_f, @north.to_f]]
+        @events = @events.and(coordinates: { '$geoWithin' => { '$box' => box } }) unless @events.empty?
+      else
+        @events = @events.and(:coordinates.ne => nil)
+      end
+
+      @points_count = @events.count
+      @points = @events.to_a
+    end
+
   end
 
   def show

@@ -12,7 +12,7 @@ export default class extends Controller {
 
     this.timeout = setTimeout(() => {
       this.element.requestSubmit()
-    }, 300) // 300ms delay for debouncing
+    }, 500) // 500ms delay for debouncing
   }
 
   // For immediate submission (checkboxes, selects, date inputs)

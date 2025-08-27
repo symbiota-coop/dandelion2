@@ -103,34 +103,36 @@
   </div>
 
   <%= turbo_frame_tag "events_content" do %>
-    <% if @events.any? %>
-      <% if params[:view] == 'map' %>
-        <%= render 'shared/map', points: @events.and(:coordinates.ne => nil) %>
-      <% else %>
+    <% if params[:view] == 'map' %>
+      <div class="mt-3">
+        <%= render 'shared/map', stem: '/events', dynamic: true, points: @points, points_count: @points_count, centre: (OpenStruct.new(lat: @lat, lng: @lng) if @lat && @lng), zoom: @zoom %>
+      </div>
+    <% else %>
+      <% if @events.any? %>
         <div class="row mt-4">
           <% @events.each do |event| %>
             <%= render 'event', event: event %>
           <% end %>
         </div>
+      <% else %>
+        <div class="text-center py-5">
+          <i class="bi bi-calendar-x display-1 text-muted"></i>
+          <h3 class="mt-3 text-muted">
+            <% if params[:search].present? %>
+              No events found
+            <% else %>
+              No events yet
+            <% end %>
+          </h3>
+          <p class="text-muted">
+            <% if params[:search].present? %>
+              Try adjusting your search terms
+            <% else %>
+              Check back later for upcoming events!
+            <% end %>
+          </p>
+        </div>
       <% end %>
-    <% else %>
-      <div class="text-center py-5">
-        <i class="bi bi-calendar-x display-1 text-muted"></i>
-        <h3 class="mt-3 text-muted">
-          <% if params[:search].present? %>
-            No events found
-          <% else %>
-            No events yet
-          <% end %>
-        </h3>
-        <p class="text-muted">
-          <% if params[:search].present? %>
-            Try adjusting your search terms
-          <% else %>
-            Check back later for upcoming events!
-          <% end %>
-        </p>
-      </div>
     <% end %>
   <% end %>
 </div>
