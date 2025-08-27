@@ -105,7 +105,7 @@
   <%= turbo_frame_tag "events_content" do %>
     <% if params[:view] == 'map' %>
       <div class="mt-3">
-        <%= render 'shared/map', stem: '/events', dynamic: true, points: @points, points_count: @points_count, centre: (OpenStruct.new(lat: @lat, lng: @lng) if @lat && @lng), zoom: @zoom %>
+        <%= render 'shared/map', stem: '/events', dynamic: true, points: @points, points_count: @points_count, centre: (OpenStruct.new(lat: @lat, lng: @lng) if @lat && @lng), zoom: @zoom, fill_screen: true %>
       </div>
     <% else %>
       <% if @events.any? %>
