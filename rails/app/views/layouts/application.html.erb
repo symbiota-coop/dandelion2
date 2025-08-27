@@ -6,12 +6,34 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <% if hotwire_native_app? %>
       <%= stylesheet_link_tag "native", "data-turbo-track": "reload" %>
     <% end %>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <% {
+      'jquery/3.7.1' => 'jquery.min.js',
+      'jqueryui/1.13.2' => 'jquery-ui.min.js themes/base/jquery-ui.min.css',
+     }.each { |k,v| %>
+    <% v.split(' ').each { |f| u = "https://cdnjs.cloudflare.com/ajax/libs/#{k}/#{f}" %>
+    <% case f.split('.').last.to_sym; when :js %>
+      <script src="<%= u %>"></script>
+    <% when :css %>
+      <link rel="stylesheet" href="<%= u %>">
+    <% end %>
+    <% } %>
+    <% } %>
+
+    <% [
+     "//maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_PUBLIC_API_KEY']}&libraries=places",
+     '//rawcdn.githack.com/mahnunchik/markerclustererplus/736b0e3a7d916fbeb2ee5007494f17a5329b11a8/src/markerclusterer.js',
+     '//rawcdn.githack.com/scottdejonge/map-icons/dbf6fd7caedd60d11b5bfb5f267a114a6847d012/dist/js/map-icons.js',
+   ].each { |f| %>
+    <script src="<%= f %>"></script>
+    <% } %>
 
     <%= javascript_importmap_tags %>
 

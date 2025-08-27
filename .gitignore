@@ -2,3 +2,4 @@
 *.code-workspace
 rails/log
 rails/tmp
+.env

@@ -91,11 +91,15 @@
 
   <%= turbo_frame_tag "events_content" do %>
     <% if @events.any? %>
-      <div class="row mt-4">
-        <% @events.each do |event| %>
-          <%= render partial: 'event', locals: { event: event } %>
-        <% end %>
-      </div>
+      <% if params[:display] == 'map' %>
+        <%= render 'shared/map', points: @events.and(:coordinates.ne => nil) %>
+      <% else %>
+        <div class="row mt-4">
+          <% @events.each do |event| %>
+            <%= render 'event', event: event %>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
       <div class="text-center py-5">
         <i class="bi bi-calendar-x display-1 text-muted"></i>

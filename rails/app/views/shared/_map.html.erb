@@ -1,0 +1,66 @@
+<%
+points_limit = 500
+%>
+
+<script>
+  $(function () {
+    // Prepare configuration data
+
+    var points = [];
+    <% if defined?(points) && (!defined?(dynamic) || (defined?(points_count) && points_count <= points_limit)) %>
+      <% points.each_with_index { |point, n| %>
+        points.push({
+          model_name: '<%= point.class.to_s %>',
+          id: '<%= point.id %>',
+          lat: <%= point.lat %>,
+          lng: <%= point.lng %>,
+          n: <%= n %>
+        });
+      <% } %>
+    <% end %>
+
+    var polygonPaths = [];
+    <% if defined?(polygonables) %>
+      <% polygonables.each { |polygonable| %>
+        <% polygonable.polygons.each { |polygon| %>
+          polygonPaths.push([
+            <% polygon.coordinates[0].each { |coordinate| %>
+              {lat: <%= coordinate[1] %>, lng: <%= coordinate[0] %>},
+            <% } %>
+          ]);
+        <% } %>
+      <% } %>
+    <% end %>
+
+    // Map configuration
+    var config = {
+      minZoom: <%= defined?(minZoom) && minZoom ? minZoom : 1 %>,
+      points: points,
+      polygonPaths: polygonPaths,
+      infoWindow: <%= defined?(info_window) && info_window ? 'true' : 'false' %>,
+      polygonables: <%= defined?(polygonables) && !polygonables.empty? ? 'true' : 'false' %>,
+      pointsExceedLimit: <%= defined?(points_count) && points_count > points_limit ? 'true' : 'false' %>,
+      dynamic: <%= defined?(dynamic) && dynamic ? 'true' : 'false' %>,
+      triggerBoundsChanged: <%= defined?(trigger_bounds_changed) && trigger_bounds_changed ? 'true' : 'false' %>,
+      stem: '<%= defined?(stem) && stem ? stem : '/map' %>'
+      <% if defined?(centre) && centre %>
+        , centre: { lat: <%= centre.lat %>, lng: <%= centre.lng %> },
+        zoom: <%= zoom %>
+      <% elsif defined?(bounds) && bounds %>
+        , bounds: {
+          south: <%= bounds[:south] %>,
+          west: <%= bounds[:west] %>,
+          north: <%= bounds[:north] %>,
+          east: <%= bounds[:east] %>
+        }
+      <% end %>
+    };
+
+    // Initialize the map
+    MapUtils.initializeMap(config);
+  });
+</script>
+<div id="map-container" style="position: relative">
+  <div id="map-canvas" style="height: 68vh"></div>
+  <div id="points-warning" style="position: absolute; top: 0; left: 20px; right: 20px; margin: auto; display: none" class="mt-3 alert alert-warning">There are too many points to display, please zoom in</div>
+</div>

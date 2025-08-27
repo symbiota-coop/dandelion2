@@ -31,3 +31,17 @@ body {
   border-color: #f59e0b;
   color: #1f2937;
 }
+
+.map-icon-label .bi {
+  color: white;
+  font-size: 20px !important;
+  position: relative;
+  top: -18px
+}
+
+.map-icon-label .map-icon {
+  color: white;
+  font-size: 22px !important;
+  position: relative;
+  top: -4px
+}
